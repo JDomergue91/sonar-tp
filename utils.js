@@ -1,8 +1,8 @@
-function processData(x) {
-    let a = x * 2; 
-    let b = a + 10;
-    let c = b / 3;
-    return c;
+function calculateProcessedData(inputValue) {
+    const doubledValue = inputValue * 2;
+    const adjustedValue = doubledValue + 10;
+    const finalValue = adjustedValue / 3;
+    return finalValue;
 }
 
-module.exports = { processData };
+module.exports = { calculateProcessedData };

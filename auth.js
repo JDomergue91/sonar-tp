@@ -1,14 +1,17 @@
-function login(username, password) {
-    if (username === "admin" && password === "123456") {
-        return true;
-    }
-    return false;
+const bcrypt = require('bcrypt');
+const { isPasswordValid } = require('./passwordUtils');
+
+const SALT_ROUNDS = 10;
+
+async function login(username, password) {
+    if (!username || !password) throw new Error("Identifiants manquants.");
+    const hashedPassword = await getPasswordFromDB(username);
+    return bcrypt.compare(password, hashedPassword);
 }
 
-function validatePassword(pwd) {
-    if (pwd.length < 8) {
-        console.log("Password too short");
-    }
+async function hashPassword(password) {
+    isPasswordValid(password);
+    return bcrypt.hash(password, SALT_ROUNDS);
 }
 
-module.exports = { login, validatePassword };
+module.exports = { login, hashPassword };
